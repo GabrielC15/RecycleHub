@@ -137,8 +137,36 @@ def login():
 # Retrieve all listings
 @app.route('/listings', methods=['GET'])
 def get_listings():
-    listings = Listing.query.all()
+    # Get query parameters for filtering/sorting
+    material = request.args.get('material')  # e.g., ?material=glass
+    action = request.args.get('action')        # e.g., ?action=donate
+    sort_by = request.args.get('sort_by')        # e.g., ?sort_by=material
+    order = request.args.get('order', 'asc')     # default to ascending order
+
+    query = Listing.query
+
+    # Filter by material if provided
+    if material:
+        # Using ilike for case-insensitive matching; adjust as needed
+        query = query.filter(Listing.material.ilike(f'%{material}%'))
+        
+    # Filter by action if provided
+    if action:
+        query = query.filter(Listing.action.ilike(f'%{action}%'))
+
+    # Apply sorting if requested
+    if sort_by:
+        # Only allow sorting by valid fields (for example, material)
+        if sort_by == 'material':
+            if order == 'desc':
+                query = query.order_by(Listing.material.desc())
+            else:
+                query = query.order_by(Listing.material.asc())
+        # You could add additional fields to sort by as needed.
+
+    listings = query.all()
     return jsonify([listing.to_dict() for listing in listings])
+
 
 # Create a new listing with optional image upload; requires authentication
 @app.route('/listings', methods=['POST'])
