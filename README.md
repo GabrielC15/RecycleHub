@@ -13,6 +13,7 @@ Create and Activate a Virtual Environment:
     venv\Scripts\activate
 
 Install Dependencies:
+    ```bash
     pip install flask flask-sqlalchemy flask-jwt-extended flask-cors werkzeug
 
 ## Inspiration
