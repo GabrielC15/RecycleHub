@@ -6,7 +6,11 @@
       <v-app-bar-title class="text-h6 ms-3">
         <v-icon icon="mdi-apps"></v-icon>
 
-        <span class="ms-1">{{ appName }}</span>
+        <span class="ms-1" color="white">{{ appName }}</span>
+
+        <v-btn text color="white" class="mr-2" to="/buy">Buy</v-btn>
+        <v-btn text color="white" class="mr-2" to="/sell">Sell</v-btn>
+        <v-btn text color="white" to="/sign-in">Sign In</v-btn>
       </v-app-bar-title>
     </v-app-bar>
 
