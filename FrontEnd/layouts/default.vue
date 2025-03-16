@@ -6,7 +6,7 @@
       <v-app-bar-title class="text-h6 ms-3">
         <v-icon icon="mdi-apps"></v-icon>
 
-        <span class="ms-1">My Application</span>
+        <span class="ms-1">{{ appName }}</span>
       </v-app-bar-title>
     </v-app-bar>
 
@@ -16,19 +16,19 @@
         <!-- Menu items in the drawer with icons -->
         <v-list-item
           :to="{ name: 'index' }"
-          title="Home"
+          :title="menuItem1Title"
           prepend-icon="mdi-home"
         ></v-list-item>
 
         <v-list-item
           :to="{ name: 'index' }"
-          title="Products"
+          :title="menuItem2Title"
           prepend-icon="mdi-cube-outline"
         ></v-list-item>
 
         <v-list-item
           :to="{ name: 'index' }"
-          title="Contact"
+          :title="menuItem3Title"
           prepend-icon="mdi-email"
         ></v-list-item>
       </v-list>
@@ -42,7 +42,7 @@
     <!-- Smaller footer at the bottom of the screen -->
     <v-footer app color="secondary" height="30">
       <v-container class="text-center text-caption">
-        © {{ new Date().getFullYear() }} My Application - All Rights Reserved
+        {{ footerText }}
       </v-container>
     </v-footer>
   </v-app>
@@ -50,4 +50,9 @@
 
 <script setup>
 const drawer = ref(false);
+const appName = "My Application";
+const menuItem1Title = "Home";
+const menuItem2Title = "Products";
+const menuItem3Title = "Contact";
+const footerText = ` My Application - All Rights Reserved`;
 </script>
