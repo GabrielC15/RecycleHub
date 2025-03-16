@@ -1,30 +1,32 @@
 <template>
-  <v-container>
-    <v-row class="justify-center align-center">
-      <v-col
-        cols="auto"
-        class="mt-5 d-flex flex-column justify-center align-center align-self-stretch"
-        v-for="category in Categories"
-        v-bind:key="category.title"
-        style="width: 100px"
-      >
-        <v-btn :icon="category.icon" size="small" class="mt-0"></v-btn>
-        <span
-          class="mt-2 text-caption text-center d-flex flex-grow-1 align-center justify-center"
-          style="
-            width: 100px;
-            white-space: normal;
-            word-wrap: break-word;
-            text-align: center;
-          "
+  <v-sheet style="background-color: #00838f" width="100%" height="100%">
+    <v-container>
+      <v-row class="justify-center align-center">
+        <v-col
+          cols="auto"
+          class="mt-5 d-flex flex-column justify-center align-center align-self-stretch"
+          v-for="category in Categories"
+          v-bind:key="category.title"
+          style="width: 100px"
         >
-          {{ category.title }}
-        </span>
-      </v-col>
-    </v-row>
+          <v-btn :icon="category.icon" size="small" class="mt-0"></v-btn>
+          <span
+            class="mt-2 text-caption text-center d-flex flex-grow-1 align-center justify-center"
+            style="
+              width: 100px;
+              white-space: normal;
+              word-wrap: break-word;
+              text-align: center;
+            "
+          >
+            {{ category.title }}
+          </span>
+        </v-col>
+      </v-row>
 
-    <Listings />
-  </v-container>
+      <Listings />
+    </v-container>
+  </v-sheet>
 </template>
 
 <script setup>
