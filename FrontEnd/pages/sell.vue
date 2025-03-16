@@ -119,26 +119,26 @@ const loadFile = (event) => {
   v$.value.image.$touch();
 };
 
-let token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0MjEwMzkyOSwianRpIjoiYTJjOGNlMGYtZjkzMi00ZTU4LTg4ODMtZWViMzgyYmExZjhhIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjIiLCJuYmYiOjE3NDIxMDM5MjksImNzcmYiOiJjMjYyNmE2ZC1iYTc1LTRhMjUtYmJhZi00NWVkNjFjMmRlZTkiLCJleHAiOjE3NDIxMDQ4Mjl9.19jCestppp1_Au9HKNYt45SiF2H_HCJMgvcbvhiozuI";
+let token = "";
 onMounted(() => {
-  //   const instance = getCurrentInstance();
-  //   if (import.meta.client) {
-  //     const token = instance.proxy.$auth.strategy.token.getLocal();
-  //     console.log("Token:", token);
+  const instance = getCurrentInstance();
+  if (import.meta.client) {
+    const token = instance.proxy.$auth.strategy.token.getLocal();
+    console.log("Token:", token);
 
-  // Interceptor to add token automatically to every request
-  axios.interceptors.request.use(
-    (config) => {
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
+    // Interceptor to add token automatically to every request
+    axios.interceptors.request.use(
+      (config) => {
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+      },
+      (error) => {
+        return Promise.reject(error);
       }
-      return config;
-    },
-    (error) => {
-      return Promise.reject(error);
-    }
-  );
+    );
+  }
 });
 
 // Function to submit the form

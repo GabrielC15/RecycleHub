@@ -14,7 +14,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///recyclehub.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['JWT_SECRET_KEY'] = 'your-secret-key-here'  
-
 jwt = JWTManager(app)
 db = SQLAlchemy(app)
 
