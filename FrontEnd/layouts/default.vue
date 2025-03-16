@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <!-- Toolbar at the top of the screen -->
-    <v-app-bar color="primary" height="48">
+    <v-app-bar style="background-color: #00838f" height="48">
       <!-- Title of the application with adjusted margin and font size -->
       <v-app-bar-title class="text-h6 ms-3">
         <v-icon icon="mdi-apps"></v-icon>
@@ -50,7 +50,7 @@
 
 <script setup>
 const drawer = ref(false);
-const appName = "My Application";
+const appName = "RecycleHub";
 const menuItem1Title = "Home";
 const menuItem2Title = "Products";
 const menuItem3Title = "Contact";
