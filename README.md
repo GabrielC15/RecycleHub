@@ -34,5 +34,10 @@ RecycleHub is a web-based platform that:
 - **Community Impact:** Built a solution that addresses real sustainability challenges in small communities.
 
 ## What we learned
+Since we are first timers, we learnt that building a robust web application involves much more than just writing code. Before this hackathon, most of our teammates do not have any fullstack experience, except one with a little frontend experience. Yesterday, we know nothing. Now we know something. Futhermore, we learnt to ultise various API and framework in fronend and backend including Flask, RESTFUL API, Vue.js, etc.. Overall, this project has been a steep but rewarding learning curve, giving us the skills and confidence to tackle even more ambitious projects in the future.
 
 ## What's next for RecycleHub
+- **Enhance the Frontend:** Expand the React UI with advanced filtering, geolocation, and dashboards.
+- **Database Upgrade:** Transition to PostgreSQL with proper schema migrations.
+- **Mobile Development:** Create a companion mobile app for greater accessibility.
+- **API Documentation:** Implement Swagger/OpenAPI for comprehensive API documentation.
