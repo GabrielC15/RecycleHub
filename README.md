@@ -13,7 +13,7 @@ Create and Activate a Virtual Environment:
     venv\Scripts\activate
 
 Install Dependencies:
-    ```bash pip install flask flask-sqlalchemy flask-jwt-extended flask-cors werkzeug
+    pip install flask flask-sqlalchemy flask-jwt-extended flask-cors werkzeug
 
 ## Inspiration
 RecycleHub was born from the need for sustainable waste management solutions in small communities, high school students, artist. Many small towns struggle with efficiently recycling materials, and we saw an opportunity to empower residents by turning recyclable waste into economic value. Our goal is to transform waste into a community resource by facilitating the exchange, donation, and sale of recyclable items.
