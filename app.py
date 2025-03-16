@@ -13,7 +13,7 @@ CORS(app)  # Allow CORS for all origins
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///recyclehub.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOAD_FOLDER'] = 'uploads'
-app.config['JWT_SECRET_KEY'] = 'your-secret-key-here'  # Change this to a strong key
+app.config['JWT_SECRET_KEY'] = 'your-secret-key-here'  
 
 jwt = JWTManager(app)
 db = SQLAlchemy(app)
