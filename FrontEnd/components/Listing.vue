@@ -1,35 +1,23 @@
 <template>
-  <v-container>
-    <v-layout>
-      <v-card hover>
-        <v-img :src="{ image }"></v-img>
-        <v-card-title>
-          <h2>{{ title }}</h2>
-        </v-card-title>
+  <v-card hover max-width="400">
+    <v-img :src="listing.image_url" height="250" cover></v-img>
+    <v-card-title>
+      <h2>{{ listing.title }}</h2>
+    </v-card-title>
 
-        <v-card-text>
-          {{ description }}
-        </v-card-text>
+    <v-card-subtitle>
+      {{ listing.price }}
+    </v-card-subtitle>
 
-        <v-card-actions>
-          <v-btn color="success">{{ action }}</v-btn>
-          <v-btn flat color="primary">{{ material }}</v-btn>
-          <v-spacer></v-spacer>
-          <v-btn icon><v-icon>bookmark</v-icon></v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-layout>
-  </v-container>
+    <v-card-actions>
+      <v-btn color="success">{{ listing.action }}</v-btn>
+      <v-btn flat color="primary">{{ listing.material }}</v-btn>
+    </v-card-actions>
+  </v-card>
 </template>
 
 <script setup>
 defineProps({
-  title: String,
-  description: String,
-  location: String,
-  action: String,
-  material: String,
-  image: String,
-  createdAt: Date,
+  listing: Object,
 });
 </script>
