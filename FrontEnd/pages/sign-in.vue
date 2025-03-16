@@ -1,13 +1,13 @@
 <template>
-  <form>
+  <form class="d-flex flex-column">
     <v-text-field
-      v-model="state.name"
+      v-model="state.username"
       :counter="10"
-      :error-messages="v$.name.$errors.map((e) => e.$message)"
+      :error-messages="v$.username.$errors.map((e) => e.$message)"
       label="Name"
       required
-      @blur="v$.name.$touch"
-      @input="v$.name.$touch"
+      @blur="v$.username.$touch"
+      @input="v$.username.$touch"
     ></v-text-field>
 
     <v-text-field
@@ -20,85 +20,97 @@
       @input="v$.email.$touch"
     ></v-text-field>
 
-    <v-btn-toggle v-model="toggle" mandatory>
-      <v-btn icon="mdi-format-align-left" value="sign-up">Sign Up</v-btn>
-      <v-btn icon="mdi-format-align-center" value="log-in">Log In</v-btn>
+    <v-text-field
+      v-model="state.password"
+      :error-messages="v$.password.$errors.map((e) => e.$message)"
+      :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+      :type="showPassword ? 'text' : 'password'"
+      label="Password"
+      @click:append="showPassword = !showPassword"
+      @blur="v$.username.$touch"
+      @input="v$.username.$touch"
+    ></v-text-field>
+
+    <v-btn-toggle divided variant="outlined" v-model="toggle" mandatory>
+      <v-btn value="sign-up">Sign Up</v-btn>
+      <v-btn value="log-in">Log In</v-btn>
     </v-btn-toggle>
 
     <v-btn class="me-4" @click="submitForm"> submit </v-btn>
   </form>
+  <v-snackbar v-model="snackbar" timeout="1000">
+    {{ signInMessage }}
+
+    <template v-slot:actions>
+      <v-btn color="blue" variant="text" @click="snackbar = false">
+        Close
+      </v-btn>
+    </template>
+  </v-snackbar>
 </template>
 
 <script setup>
 import { useVuelidate } from "@vuelidate/core";
-import { required, numeric } from "@vuelidate/validators";
+import { required, email } from "@vuelidate/validators";
 import axios from "axios";
 
+const showPassword = ref(false);
+const toggle = ref();
+const snackbar = ref(false);
 const state = reactive({
   name: "",
-  description: "",
-  location: "",
-  price: "",
-  action: null,
-  material: null,
-  file: null,
+  email: "",
+  password: "",
 });
-
 const v$ = useVuelidate(
   {
-    name: { required },
-    description: { required },
-    location: { required },
-    price: { required, numeric },
-    action: { required },
-    material: { required },
-    file: {
-      required: (value) => value instanceof File || "File is required",
-    },
+    username: { required },
+    email: { email },
+    password: { required },
   },
   state
 );
 
-const fileUrl = ref("");
+const signInMessage = ref("");
+const submitForm = async () => {
+  const result = await v$.value.$validate();
+  if (result) {
+    if (toggle.value == "sign-up") {
+      // Handle Sign Up
+      try {
+        const response = await axios.post("http://localhost:5000/signup", {
+          username: state.username,
+          email: state.email,
+          password: state.password,
+        });
 
-const handleFileUpload = (event) => {
-  if (event) {
-    state.file = event;
-    fileUrl.value = URL.createObjectURL(event);
-    v$.value.file.$touch();
-  } else {
-    state.file = null;
-    fileUrl.value = "";
-  }
-};
+        console.log("Sign up successful:", response.data);
+      } catch (error) {
+        if (error.response) {
+          console.error("Sign up failed:", error.response.data);
+        } else {
+          console.error("Error during sign up:", error.message);
+        }
+      }
+    } else if (toggle.value == "log-in") {
+      // Handle Log In
+      try {
+        const response = await axios.post("http://localhost:5000/login", {
+          username: state.username,
+          password: state.password,
+        });
+        localStorage.setItem("access_token", response.data.access_token);
 
-const toggle = ref();
-const submitForm = () => {
-  if (toggle.value == "sign-up") {
-    // Handle Sign Up
-    axios
-      .post("http://localhost:5000/signup", form.value)
-      .then((response) => {
-        console.log("User signed up successfully:", response.data);
-      })
-      .catch((error) => {
-        console.error("Sign up error:", error.response.data);
-      });
-  } else if (toggle.value == "log-in") {
-    // Handle Log In
-    axios
-      .post("http://localhost:5000/login", {
-        username_or_email: form.value.username || form.value.email,
-        password: form.value.password,
-      })
-      .then((response) => {
-        const { access_token } = response.data;
-        console.log("Login successful! Token:", access_token);
-        localStorage.setItem("authToken", access_token); // Store token
-      })
-      .catch((error) => {
-        console.error("Login error:", error.response.data);
-      });
+        console.log("Login successful:", response.data);
+      } catch (error) {
+        if (error.response) {
+          console.error("Login failed:", error.response.data);
+          alert(error.response.data.error);
+        } else {
+          console.error("Error during login:", error.message);
+        }
+      }
+    }
   }
 };
 </script>
