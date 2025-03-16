@@ -3,13 +3,13 @@
 1. **Clone the Repository:**
    ```bash
    git clone <repository_url>
-   cd RecycleHub```
+   cd RecycleHub
 
 Create and Activate a Virtual Environment:
 # On macOS/Linux:
-source venv/bin/activate
+``` source venv/bin/activate ```
 # On Windows:
-venv\Scripts\activate
+``` venv\Scripts\activate ```
 
 Install Dependencies:
 pip install flask flask-sqlalchemy flask-jwt-extended flask-cors werkzeug
